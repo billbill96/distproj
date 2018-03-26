@@ -138,4 +138,8 @@ function isLoggedIn(req, res, next) {
     res.redirect("/login");
 }
 
+<<<<<<< HEAD
 module.exports = router ;
+=======
+module.exports = router ;
+>>>>>>> b7e52454a6a09f92484618d2b0b94309d62eb4d6
