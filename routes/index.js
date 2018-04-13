@@ -14,12 +14,12 @@ router.get('/',function(req,res){
     })
 });
 
-router.get('/newstory',function(req,res){
+router.get('/newstory',isLoggedIn,function(req,res){
     res.render('newstory');
 })
 
-router.post('/newstory',isLoggedIn,function(req,res){
-    console.log(req.body.topic);
+router.post('/newstory',function(req,res){
+    //console.log(req.body.topic);
     var newpost = new post({ 
         topic: req.body.topic,
         type : req.body.type, //canteen,worksp
@@ -39,6 +39,14 @@ router.post('/newstory',isLoggedIn,function(req,res){
              res.redirect("/");
          }
      }) 
+})
+router.get('/mystory',function(req,res){
+    //console.log(req.user);
+    post.find({'user': req.user.username},function(err,data){
+        res.render('mystory',{
+            allpost : data
+        })
+    })
 })
 router.get('/canteenlek',function(req,res){
     post.find({'location': 'lek','type':'canteen'}, function(err, data) {
@@ -138,8 +146,4 @@ function isLoggedIn(req, res, next) {
     res.redirect("/login");
 }
 
-<<<<<<< HEAD
 module.exports = router ;
-=======
-module.exports = router ;
->>>>>>> b7e52454a6a09f92484618d2b0b94309d62eb4d6

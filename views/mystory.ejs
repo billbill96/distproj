@@ -1,0 +1,40 @@
+<% include partial/header.ejs %>
+
+<header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner" style="background-image: url(images/img_bg_4.jpg)" data-stellar-background-ratio="0.5">
+	<div class="overlay"></div>
+	<div class="gtco-container">
+		<div class="row row-mt-15em">
+			<div class="col-md-12 mt-text text-center animate-box" data-animate-effect="fadeInUp">
+				<h1> MYSTORY</h1>	
+			</div>
+		</div>
+	</div>
+</header>
+
+	<div class="gtco-section gtco-gray-bg">
+		<div class="gtco-container">
+			<div class="row">
+				<% allpost.forEach(function (post) { %>
+				<div class="col-lg-4 col-md-4 col-sm-6">
+					<a href="/show/<%=post.id%>" class="gtco-card-item">
+						<figure>
+							<img src="<%=post.image%>" alt="Image" class="img-responsive">
+						</figure>
+						<div class="gtco-text text-left">
+							<h2><%= post.topic %></h2>
+							<p><%= post.faculty %></p>
+							<p class="gtco-category"><%= post.date %> by <%= post.user %></p>
+						</div>
+					</a>
+				</div>
+				<% }) %>
+
+				<div class="clearfix visible-lg-block visible-md-block"></div>
+
+			</div>
+		</div>
+	</div>
+
+	
+	
+<% include partial/footer.ejs %>

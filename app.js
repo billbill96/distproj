@@ -1,3 +1,4 @@
+var port = process.env.PORT || 8000;
 var express       = require('express');
 var app           = express();
 var bodyParser    = require('body-parser');
@@ -7,6 +8,13 @@ var user          = require('./models/user');
 var post          = require('./models/post');
 var LocalStrategy = require('passport-local').Strategy;
 
+/*mongoose.connect("mongodb://bill:123@ds115219.mlab.com:15219/project",{
+    server: {
+        useMongoClient: true,
+        poolSize: 2,
+        promiseLibrary: global.Promise
+    }
+  }); */
 var index  = require('./routes/index');
 //var postroute = require('./routes/post');
 
@@ -55,6 +63,9 @@ post.create({
 })
 
 */
-app.listen(process.env.PORT || 8080, function() {
-    console.log("server running port:8080!");
+app.listen(port, function() {
+    console.log("App is running on port " + port);
 });
+/*app.listen(process.env.PORT || 8080, function() {
+    console.log("server running port:8080!");
+}); */
