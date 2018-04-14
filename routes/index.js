@@ -36,9 +36,64 @@ router.post('/newstory',function(req,res){
              console.log(err);
          }
          else{
-             res.redirect("/");
+            post.find({'user': req.user.username},function(err,data){
+                res.render('mystory',{
+                    allpost : data
+                })
+            })
          }
      }) 
+})
+router.get('/editstory/:id',function(req,res){
+    post.findById(req.params.id, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+           // console.log(req.params.id);
+            res.render('editstory', { 
+                post: data 
+            });
+           //res.redirect("/");
+         }
+    });
+})
+
+router.post('/editstory/:id',function(req,res){
+    //console.log(req.params.id);
+    //console.log(req.body.topic);
+    var newvalues = {$set: {
+        topic: req.body.topic,
+        type : req.body.type, //canteen,worksp
+        location: req.body.location, //lek,yai
+        faculty : req.body.faculty,
+        image: req.body.image,
+        description : req.body.description, //comment
+        date : Date.now(),
+        }}; 
+     post.findByIdAndUpdate(req.params.id, newvalues ,{ new: true }, function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+           // console.log(req.params.id);
+            res.render('mystory');
+        } 
+      }) 
+    })
+    
+router.get('/deletestory/:id',function(req,res){
+    post.remove( {_id: req.params.id} ,function(err){
+        if (err) {
+            console.log(err);
+        } else {
+           // console.log(req.params.id);
+           post.find({'user': req.user.username},function(err,data){
+            res.render('mystory',{
+                allpost : data
+            })
+        })
+        } 
+    }
+    );
 })
 router.get('/mystory',function(req,res){
     //console.log(req.user);
@@ -91,7 +146,17 @@ router.get("/show/:id", function (req, res) {
         }
     });
 })
-
+router.get("/showmystory/:id", function (req, res) {
+    //console.log(req.params.id);
+    post.findById(req.params.id, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+           // console.log(req.params.id);
+            res.render('showplusedit', { post: data });
+        }
+    });
+})
 router.get('/show',function(req,res){
     res.render('show');
 })
