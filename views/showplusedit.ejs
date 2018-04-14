@@ -1,0 +1,38 @@
+<% include partial/header.ejs %>
+
+
+<header id="gtco-header" class="gtco-cover gtco-cover-sm" role="banner" style="background-image:  url(<%= post.image %>)" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="gtco-container">
+        <div class="row row-mt-15em">
+            <div class="col-md-7 mt-text text-left animate-box" data-animate-effect="fadeInUp">
+                <h1> <%= post.topic %></h1>	
+                <h2>By <%= post.user %></h2>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<div class="flex-section gtco-gray-bg">
+    <div class="col-1">
+        <div class="text">
+
+            <div class="row row-pb-sm">
+                <div class="col-md-12">
+                <h2>Faculty of <%= post.faculty %></h2>
+                <p>Description</p>
+                <p><%= post.description %></p>
+                <p><a href="/editstory/<%=post.id%>">EDIT HERE!</a> </p>
+                <p><a href="/deletestory/<%=post.id%>">DELETE STORY!</a></p>
+           </div>
+            </div>
+            </div>
+        </div>
+    </div>
+       
+    <div class="col-2 flex-img" style="background-image: url(images/img_1.jpg);"></div>
+</div>
+
+<% include partial/footer.ejs %>
