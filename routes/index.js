@@ -177,7 +177,7 @@ router.get('/signup',function(req,res){
 })
 router.post('/signup',function(req,res){
     console.log(req.body.username+' '+req.body.email);
-    var newUser = new user({ username: req.body.username, email: req.body.email });
+    var newUser = new user.User({ username: req.body.username, email: req.body.email });
     user.User.register(newUser, req.body.password, function (err, user) {
         if (err) { //if username has been in DB คือมีชื่อซ้ำ
             console.log(err);
