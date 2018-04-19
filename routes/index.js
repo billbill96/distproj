@@ -6,7 +6,7 @@ var post = require('../models/post');
 
 router.get('/',function(req,res){
     //res.render('home');
-    post.findOne({}, function(err, data) {
+    post.Post.findOne({}, function(err, data) {
         res.render('home', {
             canteen : data,
             worksp : data
@@ -20,7 +20,7 @@ router.get('/newstory',isLoggedIn,function(req,res){
 
 router.post('/newstory',function(req,res){
     //console.log(req.body.topic);
-    var newpost = new post({ 
+    var newpost = new post.Post({ 
         topic: req.body.topic,
         type : req.body.type, //canteen,worksp
         location: req.body.location, //lek,yai
@@ -31,21 +31,18 @@ router.post('/newstory',function(req,res){
         user : res.locals.currentUser.username,
      });
      console.log(newpost);
-     post.create(newpost,function(err,post){
+     post.Post.create(newpost,function(err,post){
          if(err){
              console.log(err);
          }
          else{
-            post.find({'user': req.user.username},function(err,data){
-                res.render('mystory',{
-                    allpost : data
-                })
-            })
-         }
+            res.redirect('/mystory');
+           // res.redirect('/');
+         } 
      }) 
 })
 router.get('/editstory/:id',function(req,res){
-    post.findById(req.params.id, function (err, data) {
+    post.Post.findById(req.params.id, function (err, data) {
         if (err) {
             console.log(err);
         } else {
@@ -70,41 +67,37 @@ router.post('/editstory/:id',function(req,res){
         description : req.body.description, //comment
         date : Date.now(),
         }}; 
-     post.findByIdAndUpdate(req.params.id, newvalues ,{ new: true }, function(err) {
+     post.Post.findByIdAndUpdate(req.params.id, newvalues ,{ new: true }, function(err) {
         if (err) {
             console.log(err);
         } else {
            // console.log(req.params.id);
-            res.render('mystory');
+            res.redirect('/mystory');
         } 
       }) 
     })
     
 router.get('/deletestory/:id',function(req,res){
-    post.remove( {_id: req.params.id} ,function(err){
+    post.Post.remove( {_id: req.params.id} ,function(err){
         if (err) {
             console.log(err);
         } else {
            // console.log(req.params.id);
-           post.find({'user': req.user.username},function(err,data){
-            res.render('mystory',{
-                allpost : data
-            })
-        })
+           res.redirect('/mystory');
         } 
     }
     );
 })
 router.get('/mystory',function(req,res){
     //console.log(req.user);
-    post.find({'user': req.user.username},function(err,data){
+    post.Post.find({'user': req.user.username},function(err,data){
         res.render('mystory',{
             allpost : data
         })
     })
 })
 router.get('/canteenlek',function(req,res){
-    post.find({'location': 'lek','type':'canteen'}, function(err, data) {
+    post.Post.find({'location': 'lek','type':'canteen'}, function(err, data) {
         res.render('showallcanteen', {
             canteen : data
         })
@@ -112,7 +105,7 @@ router.get('/canteenlek',function(req,res){
    // res.render('showallcanteen');
 })
 router.get('/canteenyai',function(req,res){
-    post.find({'location': 'yai','type':'canteen'}, function(err, data) {
+    post.Post.find({'location': 'yai','type':'canteen'}, function(err, data) {
         res.render('showallcanteen', {
             canteen : data
         })
@@ -120,7 +113,7 @@ router.get('/canteenyai',function(req,res){
    // res.render('showallcanteen');
 })
 router.get('/worksplek',function(req,res){
-    post.find({'location': 'lek','type':'worksp'}, function(err, data) {
+    post.Post.find({'location': 'lek','type':'worksp'}, function(err, data) {
         res.render('showallwksp', {
             worksp : data
         })
@@ -128,7 +121,7 @@ router.get('/worksplek',function(req,res){
    // res.render('showallcanteen');
 })
 router.get('/workspyai',function(req,res){
-    post.find({'location': 'yai','type':'worksp'}, function(err, data) {
+    post.Post.find({'location': 'yai','type':'worksp'}, function(err, data) {
         res.render('showallwksp', {
             worksp : data
         })
@@ -137,7 +130,7 @@ router.get('/workspyai',function(req,res){
 })
 router.get("/show/:id", function (req, res) {
     //console.log(req.params.id);
-    post.findById(req.params.id, function (err, data) {
+    post.Post.findById(req.params.id, function (err, data) {
         if (err) {
             console.log(err);
         } else {
@@ -148,7 +141,7 @@ router.get("/show/:id", function (req, res) {
 })
 router.get("/showmystory/:id", function (req, res) {
     //console.log(req.params.id);
-    post.findById(req.params.id, function (err, data) {
+    post.Post.findById(req.params.id, function (err, data) {
         if (err) {
             console.log(err);
         } else {
@@ -185,7 +178,7 @@ router.get('/signup',function(req,res){
 router.post('/signup',function(req,res){
     console.log(req.body.username+' '+req.body.email);
     var newUser = new user({ username: req.body.username, email: req.body.email });
-    user.register(newUser, req.body.password, function (err, user) {
+    user.User.register(newUser, req.body.password, function (err, user) {
         if (err) { //if username has been in DB คือมีชื่อซ้ำ
             console.log(err);
             //return res.send('cant regis');

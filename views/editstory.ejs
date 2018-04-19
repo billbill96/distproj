@@ -17,18 +17,18 @@
 
             <div class="col-md-20">
                 <div class="col-md-10 animate-box">
-                <h3>Edit Story</h3>
+
                 <form action="/editstory/<%= post.id %>" method ="post">
 
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <input type="text" name ="topic" class="form-control" placeholder=<%= post.topic %>>
+                            <h4>Topic</h4>
+                            <input type="text" name ="topic" class="form-control" placeholder="topic" value=<%= post.topic %>>
                         </div>
                     </div>
 
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <h4></h4>
                             <h4>Type</h4>
                             <input type="radio"  value="worksp" id="worksp" name="type" >
                             <label for="worksp">Workspcae&nbsp;</label>
@@ -39,7 +39,6 @@
 
                     <div class="row form-group">
                             <div class="col-md-12">
-                                <h4></h4>
                                 <h4>Location</h4>
                                 <input type="radio"  value="lek" id="lek" name="location" >
                                 <label>จุฬาผั่งเล็ก</label>
@@ -49,20 +48,20 @@
                         </div>
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <input type="text" name ="faculty" class="form-control" placeholder=<%= post.faculty %>>
+                            <h4>Faculty of </h4>
+                            <input type="text" name ="faculty" class="form-control" placeholder="faculty" value=<%= post.faculty %>>
                         </div>
                     </div>
-                   
                     <div class="row form-group">
-                        <div class="col-md-12">
-                            <label class="sr-only" for="subject">Subject</label>
-                            <input type="text"name ="image" class="form-control" placeholder=<%= post.descripiton %>>
+                            <div class="col-md-12">
+                                <h4>Image url </h4>
+                                <input type="text" name ="image" class="form-control" placeholder="image url" value=<%= post.image %>>
+                            </div>
                         </div>
-                    </div>
-
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <textarea type="text" name ="description" cols="30" rows="10" class="form-control" placeholder= <%= post.descripiton %> > </textarea>
+                                <h4>Descripiton </h4>
+                                <textarea type="text" name ="description" cols="30" rows="10" class="form-control" placeholder="Description"><%= post.description %></textarea>
                         </div>
                     </div>
                     

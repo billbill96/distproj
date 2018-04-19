@@ -29,9 +29,9 @@ app.use(require("express-session")({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(user.authenticate()));
-passport.serializeUser(user.serializeUser());
-passport.deserializeUser(user.deserializeUser());
+passport.use(new LocalStrategy(user.User.authenticate()));
+passport.serializeUser(user.User.serializeUser());
+passport.deserializeUser(user.User.deserializeUser());
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
